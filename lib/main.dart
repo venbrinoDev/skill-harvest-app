@@ -76,3 +76,28 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class Name extends StatefulWidget {
+  const Name({super.key});
+
+  @override
+  State<Name> createState() => _NameState();
+}
+
+class _NameState extends State<Name> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
