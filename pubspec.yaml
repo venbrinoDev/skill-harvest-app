@@ -16,7 +16,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.10+1
   gap: ^3.0.1
-
+  flutter_riverpod: ^2.3.0
+  animated_text_kit: ^4.2.2
 
 
 

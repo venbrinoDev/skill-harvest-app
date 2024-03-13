@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:skill_harvest_app/splash_screen.dart';
 
 void main() {
-  runApp(const SkillHarvestApp());
+  runApp(const SkillHarvest());
 }
 
-class SkillHarvestApp extends StatelessWidget {
-  const SkillHarvestApp({super.key});
+class SkillHarvest extends StatelessWidget {
+  const SkillHarvest({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SkillHarvestApp extends StatelessWidget {
             secondary: Colors.blue),
         useMaterial3: true,
       ),
-      home: const SplahScreen(),
+      home: const SpalshScreen(),
     );
   }
 }

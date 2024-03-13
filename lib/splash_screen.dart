@@ -1,62 +1,68 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:skill_harvest_app/core/util/assetsUtil/asset_util.dart';
+import 'package:skill_harvest_app/constant.dart';
+import 'package:skill_harvest_app/login_page.dart';
 
-class SplahScreen extends StatelessWidget {
-  const SplahScreen({super.key});
+class SpalshScreen extends StatefulWidget {
+  const SpalshScreen({super.key});
+
+  @override
+  State<SpalshScreen> createState() => _SpalshScreenState();
+}
+
+class _SpalshScreenState extends State<SpalshScreen> {
+  @override
+  void initState() {
+    loadDelay();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void loadDelay() {
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
+        return const LoginPage();
+      }));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        left: false,
-        right: false,
-        child: SizedBox(
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      fontFamily: Assets.fontName,
-                    ),
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  'Skill Havest App',
+                  textStyle: TextStyle(
+                    fontSize: 32.0,
+                    color: Colors.blue[800],
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                const Gap(30),
-                SvgPicture.asset(
-                  Assets.onboardingOne,
-                  height: 200,
-                  width: 200,
-                ),
-                const Gap(50),
-                Text(
-                  ' Numerous free\n'
-                  'trial courses',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: Assets.fontName,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22),
-                ),
-                const Gap(15),
-                Text(
-                  'Free courses for you to\n'
-                  'find your way to learning',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: Assets.fontName,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16),
+                  speed: const Duration(milliseconds: 100),
                 ),
               ],
+              totalRepeatCount: 1,
             ),
-          ),
+            const Gap(5),
+            const Text(
+              'Learning through video course',
+              style: TextStyle(
+                  fontFamily: AppConstant.fontName,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300),
+            )
+          ],
         ),
       ),
     );
