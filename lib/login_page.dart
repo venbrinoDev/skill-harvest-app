@@ -1,12 +1,17 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:skill_harvest_app/app_image.dart';
 import 'package:skill_harvest_app/constant.dart';
 import 'package:skill_harvest_app/enter_details_widget.dart';
 
 import 'package:skill_harvest_app/text_field.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class LoginPage extends StatelessWidget {
         ),
         backgroundColor: Colors.grey.withOpacity(0.2),
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -47,11 +52,83 @@ class LoginPage extends StatelessWidget {
             Gap(10),
             ForgotPassword(),
             Gap(30),
-            LoginButton()
+            LoginButton(),
+            Gap(30),
+            BottomActionWidget(
+                title: "LDon’t have an account? ",
+                option: 'Sign up?',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }),
+            Gap(30),
+            OrLoginWidget(),
+            Gap(30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(AppImage.facebookSvg),
+                Gap(30),
+                SvgPicture.asset(AppImage.googleSvg),
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  final snackBar = SnackBar(
+    content: Text('You want to sign up ?'),
+  );
+}
+
+class OrLoginWidget extends StatelessWidget {
+  const OrLoginWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: const [
+        Expanded(
+          child: Divider(
+            color: Colors.grey,
+          ),
+        ),
+        Gap(15),
+        Text('Or login with'),
+        Gap(15),
+        Expanded(
+          child: Divider(
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BottomActionWidget extends StatelessWidget {
+  final String title;
+  final String option;
+  final VoidCallback? onPressed;
+
+  const BottomActionWidget(
+      {super.key, required this.title, required this.option, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(TextSpan(text: title, children: [
+      TextSpan(
+          text: option,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              onPressed?.call();
+            },
+          style: const TextStyle(color: Color(0xFF3D5CFF)))
+    ]));
   }
 }
 
