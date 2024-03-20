@@ -1,16 +1,16 @@
-
-
-
 import 'package:flutter/material.dart';
 
 class EmailTextFiled extends StatelessWidget {
-  const EmailTextFiled({
-    super.key,
-  });
+  final TextEditingController controller;
+  const EmailTextFiled({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        return null;
+      },
+      controller: controller,
       keyboardType: TextInputType.emailAddress,
       style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
@@ -39,9 +39,8 @@ class EmailTextFiled extends StatelessWidget {
 }
 
 class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({
-    super.key,
-  });
+  final TextEditingController controller;
+  const PasswordTextField({super.key, required this.controller});
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -53,6 +52,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       keyboardType: TextInputType.number,
       style: const TextStyle(color: Colors.black),
       obscureText: toggled,
