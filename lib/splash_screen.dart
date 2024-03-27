@@ -26,7 +26,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
   void loadDelay() {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return  LoginPage();
+        return  const LoginPage();
       }));
     });
   }

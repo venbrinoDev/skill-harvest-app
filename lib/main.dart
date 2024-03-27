@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skill_harvest_app/splash_screen.dart';
+import 'package:skill_harvest_app/stack.dart';
 
 void main() {
   runApp(const SkillHarvest());
@@ -20,7 +20,7 @@ class SkillHarvest extends StatelessWidget {
             secondary: Colors.blue),
         useMaterial3: true,
       ),
-      home: const SpalshScreen(),
+      home: const MyStackWidget(),
     );
   }
 }
