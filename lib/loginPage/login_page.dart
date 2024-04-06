@@ -116,6 +116,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submit() async {
+    if (ref.read(loginController).isCheck == false) {
+      _showError(
+          message: 'Please Accept Terms and\ncondition ',
+          action: SnackBarAction(
+              textColor: Colors.white,
+              label: 'Accept',
+              onPressed: () {
+                ref.read(loginController).updateCheckBox(true);
+              }));
+      return;
+    }
     final procced = await ref
         .read(loginController)
         .login(emailController.text, passwordController.text);
@@ -133,20 +144,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         content: Text(
           'Login in Succesfully!!!',
           style: TextStyle(
-              color: Colors.white, fontSize: 16.5, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 16.5, fontWeight: FontWeight.w400),
         )));
   }
 
-  _showError() {
+  _showError({SnackBarAction? action, String? message}) {
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
+        action: action,
         backgroundColor: Colors.red,
         content: Text(
-          'inavalid credentials',
+          message ?? 'inavalid credentials',
           style: TextStyle(
-              color: Colors.white, fontSize: 16.5, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 14.5, fontWeight: FontWeight.w400),
         )));
   }
-
-  ///ref.read()
-  ///ref.watch()
 }
