@@ -54,14 +54,16 @@ class BottomActionWidget extends StatelessWidget {
 }
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-  });
+  final void Function() onpressed;
+
+  const LoginButton({super.key, required this.onpressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          onpressed.call();
+        },
         style: ButtonStyle(
             elevation: const MaterialStatePropertyAll(0),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(

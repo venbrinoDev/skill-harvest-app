@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:skill_harvest_app/stack.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skill_harvest_app/loginPage/login_page.dart';
 
 void main() {
-  runApp(const SkillHarvest());
+  runApp(const ProviderScope(child: SkillHarvest()));
 }
 
 class SkillHarvest extends StatelessWidget {
@@ -20,7 +21,7 @@ class SkillHarvest extends StatelessWidget {
             secondary: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyStackWidget(),
+      home: const LoginPage(),
     );
   }
 }

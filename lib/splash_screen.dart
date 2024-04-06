@@ -2,7 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:skill_harvest_app/constant.dart';
-import 'package:skill_harvest_app/login_page.dart';
+import 'package:skill_harvest_app/loginPage/login_page.dart';
 
 class SpalshScreen extends StatefulWidget {
   const SpalshScreen({super.key});

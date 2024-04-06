@@ -1,24 +1,25 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:skill_harvest_app/component.dart';
 import 'package:skill_harvest_app/constant.dart';
 import 'package:skill_harvest_app/enter_details_widget.dart';
+import 'package:skill_harvest_app/loginPage/controller/controller.dart';
 import 'package:skill_harvest_app/text_field.dart';
 import 'package:skill_harvest_app/utils/app_image.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
   @override
@@ -71,12 +72,32 @@ class _LoginPageState extends State<LoginPage> {
             Gap(10),
             ForgotPassword(),
             Gap(30),
-            LoginButton(),
+            ref.watch(loginController).isBusy
+                ? CircularProgressIndicator(
+                    color: Colors.blue[800],
+                  )
+                : LoginButton(
+                    onpressed: () {
+                      _submit();
+                    },
+                  ),
             Gap(30),
-            BottomActionWidget(
-                title: "LDon’t have an account? ",
-                option: 'Sign up?',
-                onPressed: () {}),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Checkbox(
+                    fillColor: MaterialStatePropertyAll(Colors.blue),
+                    value: ref.watch(loginController).isCheck,
+                    onChanged: (bool? value) {
+                      if (value == null) return;
+                      ref.read(loginController).updateCheckBox(value);
+                    }),
+                BottomActionWidget(
+                    title: "Don’t have an account? ",
+                    option: 'Sign up?',
+                    onPressed: () {}),
+              ],
+            ),
             Gap(30),
             OrLoginWidget(),
             Gap(30),
@@ -91,7 +112,41 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-    
     );
   }
+
+  void _submit() async {
+    final procced = await ref
+        .read(loginController)
+        .login(emailController.text, passwordController.text);
+
+    if (procced == true) {
+      _showSuccess();
+    } else {
+      _showError();
+    }
+  }
+
+  _showSuccess() {
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
+        backgroundColor: Colors.green,
+        content: Text(
+          'Login in Succesfully!!!',
+          style: TextStyle(
+              color: Colors.white, fontSize: 16.5, fontWeight: FontWeight.bold),
+        )));
+  }
+
+  _showError() {
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(
+          'inavalid credentials',
+          style: TextStyle(
+              color: Colors.white, fontSize: 16.5, fontWeight: FontWeight.bold),
+        )));
+  }
+
+  ///ref.read()
+  ///ref.watch()
 }
