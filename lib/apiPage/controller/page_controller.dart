@@ -13,14 +13,14 @@ class ApiPageController extends StateNotifier<ApiPageUiState> {
     final list = await ApiService.getProduct();
 
     if (list != null) {
-      state = state.copyWith(list: list);
+      state = state.copyWith(productList: list);
     }
 
     _isBusy(false);
   }
 
   _isBusy(bool isBusy) {
-    state = state.copyWith(isBusy: isBusy);
+    state = state.copyWith(apiIsBusy: isBusy);
   }
 }
 
@@ -37,12 +37,12 @@ class ApiPageUiState {
   });
 
   ApiPageUiState copyWith({
-    List<Product>? list,
-    bool? isBusy,
+    List<Product>? productList,
+    bool? apiIsBusy,
   }) {
     return ApiPageUiState(
-      list: list ?? this.list,
-      isBusy: isBusy ?? this.isBusy,
+      list: productList ?? list,
+      isBusy: apiIsBusy ?? isBusy,
     );
   }
 }
