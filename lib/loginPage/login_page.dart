@@ -72,7 +72,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             Gap(10),
             ForgotPassword(),
             Gap(30),
-            ref.watch(loginController).isBusy
+            ref.watch(loginController.select((value) => value.isBusy))
                 ? CircularProgressIndicator(
                     color: Colors.blue[800],
                   )
@@ -87,7 +87,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               children: [
                 Checkbox(
                     fillColor: MaterialStatePropertyAll(Colors.blue),
-                    value: ref.watch(loginController).isCheck,
+                    value: ref
+                        .read(loginController.select((value) => value.isCheck)),
                     onChanged: (bool? value) {
                       if (value == null) return;
                       ref.read(loginController).updateCheckBox(value);
@@ -124,6 +125,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               label: 'Accept',
               onPressed: () {
                 ref.read(loginController).updateCheckBox(true);
+                _submit();
               }));
       return;
     }

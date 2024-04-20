@@ -19,7 +19,8 @@ dependencies:
   flutter_riverpod: ^2.3.0
   animated_text_kit: ^4.2.2
   riverpod: ^2.5.1
-
+  http: ^1.2.1
+  equatable: ^2.0.5
 
 
 dev_dependencies:
