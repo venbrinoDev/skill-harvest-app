@@ -1,12 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:skill_harvest_app/apiPage/page.dart';
+import 'package:skill_harvest_app/firebase_options.dart';
+import 'package:skill_harvest_app/loginPage/login_page.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-
-
-void main() {
   runApp(const ProviderScope(child: SkillHarvest()));
 }
 
@@ -25,12 +27,7 @@ class SkillHarvest extends StatelessWidget {
             secondary: Colors.blue),
         useMaterial3: true,
       ),
-      home: const ApiPage(),
+      home: const LoginPage(),
     );
   }
-
-
-
-
-
 }

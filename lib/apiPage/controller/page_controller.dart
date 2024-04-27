@@ -7,7 +7,6 @@ class ApiPageController extends StateNotifier<ApiPageUiState> {
   ApiPageController() : super(ApiPageUiState());
 
   Future<void> fetchAllProducts() async {
-    
     _isBusy(true);
 
     final list = await ApiService.getProduct();

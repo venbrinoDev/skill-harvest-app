@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,13 +17,24 @@ class LoginPageCOntroller extends ChangeNotifier {
   ///This is the login function
   Future<bool> login(String email, String password) async {
     _isBusy(true);
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
 
-    //Fajke api call
-    await Future.delayed(const Duration(seconds: 3));
+      FirebaseFirestore.instance.collection('users').doc().set({
+        "email": email,
+        
+      });
 
-    _isBusy(false);
 
-    return true;
+    
+      return true;
+    } catch (e) {
+      debugPrint('Firebase error $e');
+      return false;
+    } finally {
+      _isBusy(false);
+    }
   }
 
   _isBusy(bool isBusy) {
